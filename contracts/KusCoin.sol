@@ -116,7 +116,7 @@ contract KusCoin is StandardToken { // CHANGE THIS. Update the contract name.
 
     function() payable{
         totalEthInWei = totalEthInWei + msg.value;
-        uint256 amount = msg.value * unitsOneEthCanBuy/10000000000;
+        uint256 amount = msg.value * unitsOneEthCanBuy/10000000000;// value comes in WEI. sub unit of KUS is PRI (like WEI)
         require(balances[fundsWallet] >= amount);
 
         balances[fundsWallet] = balances[fundsWallet] - amount;
