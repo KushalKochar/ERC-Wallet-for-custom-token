@@ -93,7 +93,7 @@ export class Web3Service implements CanActivate {
     var privateKeyBuffer = new Buffer(this.selectedAccount.privateKey.slice(2), 'hex')
     var rawTx = {
       nonce: nonce_available,
-      gasPrice: gas_price / 100, // keeping it 10 times more for faster response
+      gasPrice: gas_price * 10, // keeping it 10 times more for faster response
       gasLimit: environment.gasLimit,// This parameter can be retrieved from network to get estimate
       to: contractAddress.address,
       value: Utils.convertEtherToWei(amountInEther),
