@@ -1,0 +1,22 @@
+
+<div class="row" style="background-color: #333; margin-bottom: 3%; padding: 1%">
+
+    <div class="col-xs-12 col-md-8">
+
+        <div class="topnav" id="myTopnav">
+            <a *ngIf='this.web3.accounts.length > 0' routerLink="/app-dashboard" routerLinkActive="active">Dashboard</a>
+            <a routerLink="/app-import-private-key" routerLinkActive="active">Import Key</a>
+            <a *ngIf='this.web3.accounts.length > 0' routerLink="/app-buy-kuscoin" routerLinkActive="active">Buy KusCoin</a>
+            <a href="javascript:void(0);" style="font-size:15px;" class="icon" (click)="responsiveMenuFunction()">&#9776;</a>
+        </div>
+
+
+    </div>
+    <div *ngIf='this.web3.accounts.length > 0' class="col-xs-12 col-md-4" style="padding-top: 10px">
+
+        <select id="UserKeys" class="form-control" [(ngModel)]="this.web3.selectedAccount" (ngModelChange)="selectedUserChanged()">
+            <option *ngFor="let u of this.web3.accounts; let i = index" [ngValue]="u">{{u.address}}</option>
+        </select>
+
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Coin Name</th>
+        <th>Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dashboardTableDetails; let i = index">
+        <td>{{item.symbol}}</td>
+        <td>{{item.coinName}}</td>
+        <td>{{item.balance}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

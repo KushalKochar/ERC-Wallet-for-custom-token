@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-md-3 ">
+    <label for="ImportPrivateKey">Import priate key</label>
+    <input id="pvtKey" placeholder="e.g. 0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3"
+      type="text" class="form-control" [(ngModel)]="privateKey">
+  </div>
+
+  <div class="col-md-3" style="padding-top: 25px;">
+    <button class="btn btn-success" type="button" (click)="importPrivateKey()">Import Key</button>
+  </div>
+</div>
