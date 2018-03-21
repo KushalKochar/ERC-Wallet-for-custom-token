@@ -8,7 +8,7 @@ export class FirebaseService {
   constructor(private fbDB: AngularFireDatabase) { }
 
   public logBoughtKusCoinTransaction(log: ActivityLog) {
-    var teee = this.fbDB.object<any>("boughtKusCoin/" + log.timeStamp).set(log);
+    var teee = this.fbDB.object<any>("boughtKusCoin/" + log.address + "/" + log.timeStamp).set(log);
   }
 
 }
