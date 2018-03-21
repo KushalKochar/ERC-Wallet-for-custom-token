@@ -129,14 +129,21 @@ export class Web3Service implements CanActivate {
     return Utils.convertWeiToEther(BalanceInWei);
   }
 
-  public retrieveAccountFromPrivateKey(key: string) {
+  public retrieveAccountFromPrivateKey(key: string) : boolean {
     var account = this.web3.eth.accounts.privateKeyToAccount(key);
     this.retrieveAccountsFromLocalDB();
+
+    //check if key already exist; if yes then return
+    if(this.accounts.findIndex(a=> a.address === account.address) != -1 ){
+      return false;
+    }
+
     this.saveAccountsInLocalDB(account);
 
     this.selectedAccount = account;
-
     this.changeAccount(this.selectedAccount);
+
+    return true;
   }
 
   private saveAccountsInLocalDB(accountToAdd: Account) {

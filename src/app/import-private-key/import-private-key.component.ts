@@ -18,8 +18,12 @@ export class ImportPrivateKeyComponent implements OnInit {
   }
 
   importPrivateKey() {
-    this.web3Service.retrieveAccountFromPrivateKey(this.privateKey);
-    this.dialogService.addDialog(AlertComponent, { title: 'Ethereum wallet - Alert', message: "Successfully imported private key and stored in LOCALSTORAGE in encrypted form!" });
+    if(this.web3Service.retrieveAccountFromPrivateKey(this.privateKey)){
+      this.dialogService.addDialog(AlertComponent, { title: 'Ethereum wallet - Alert', message: "Successfully imported private key and stored in LOCALSTORAGE in encrypted form!" });
+    }else{
+      this.dialogService.addDialog(AlertComponent, { title: 'Ethereum wallet - Alert', message: "Private key already imported and exist under the dropdown!" });
+    }
+    
   }
 
 }
