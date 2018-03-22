@@ -15,6 +15,7 @@ import { FirebaseService } from './firebase.service';
 import { ActivityLog } from '../models/activity-log';
 import { AlertComponent } from '../../alert-dialogbox.component';
 import { DialogService } from 'ng2-bootstrap-modal';
+import { LoaderService } from './loader.service';
 
 declare let window: any;
 declare const Buffer;
@@ -45,7 +46,7 @@ export class Web3Service implements CanActivate {
     this.accountChangedObservable.next(account);
   }
 
-  constructor(private firebaseService: FirebaseService, private dialogService: DialogService) {
+  constructor(private firebaseService: FirebaseService, private dialogService: DialogService, private loaderService : LoaderService) {
 
     window.addEventListener('load', (event) => {
       this.bootstrapWeb3();
@@ -108,12 +109,18 @@ export class Web3Service implements CanActivate {
 
     var firebase = this.firebaseService;
     var dialog = this.dialogService;
+    var loader = this.loaderService;
 
     this.web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
       .on('transactionHash', function (hash) {
+        loader.display(false);
         log.transactionHash = hash;
         firebase.logBoughtKusCoinTransaction(log);
         dialog.addDialog(AlertComponent, { title: 'Ethereum wallet - Alert', message: "Request for buying KusCoin is  under process and might take some time depending on the network." });
+      })
+      .catch(reason => {
+        loader.display(false);
+        dialog.addDialog(AlertComponent, { title: 'Ethereum wallet - Error', message: reason.toString() });
       });
 
   }

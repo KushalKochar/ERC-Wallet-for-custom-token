@@ -17,6 +17,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 import { firebaseconfig } from '../environments/environment';
 import { AlertComponent } from './alert-dialogbox.component';
 import { DialogService, BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { LoaderService } from './shared/servcies/loader.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { DialogService, BootstrapModalModule } from 'ng2-bootstrap-modal';
   entryComponents: [
     AlertComponent
 ],
-  providers: [Web3Service,FirebaseService,AngularFireDatabase,DialogService],
+  providers: [Web3Service,FirebaseService,AngularFireDatabase,DialogService, LoaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
