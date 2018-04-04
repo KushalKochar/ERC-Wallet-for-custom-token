@@ -3,6 +3,8 @@ import { Web3Service } from '../shared/servcies/web3.service';
 import { Subscription } from 'rxjs';
 import { AccountBalance } from '../shared/models/account-balance';
 import Utils from '../shared/utils/utils';
+import { WalletService } from '../shared/servcies/wallet.service';
+import { GlobalService } from '../shared/servcies/global.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,46 +14,47 @@ import Utils from '../shared/utils/utils';
 export class DashboardComponent implements OnDestroy {
 
   subscription: Subscription;
-  dashboardTableDetails : AccountBalance[];
+  dashboardTableDetails: AccountBalance[];
 
-  constructor(private web3Service: Web3Service) {
+  constructor(private web3Service: Web3Service,
+    private walletService: WalletService,
+    private globalService: GlobalService) {
 
     this.dashboardTableDetails = new Array<AccountBalance>();
-    this.addAccountBalance("Ethereum","ETH");
-    this.addAccountBalance("KusCoin","KUS");
-    this.refreshBalance();
+    this.addAccountBalance("Ethereum", "ETH");
+    this.addAccountBalance("KusCoin", "KUS");
+    this.refreshBalance(this.globalService.selectedAccount.address);
 
-    this.subscription = this.web3Service.accountChanged$.subscribe(
+    this.subscription = this.walletService.accountChanged$.subscribe(
       account => {
         //reffresh balance
-        this.refreshBalance();
+        this.refreshBalance(account.address);
       });
   }
 
-  private addAccountBalance(name: string, symbol: string){
+  private addAccountBalance(name: string, symbol: string) {
     var coin = new AccountBalance();
     coin.coinName = name;
     coin.symbol = symbol;
     this.dashboardTableDetails.push(coin);
   }
 
-  private refreshBalance() {
-    
-    this.web3Service.refreshEtherBalance()
+  private async refreshBalance(address: string) {
+
+    this.web3Service.getEtherBalanceForAccount(address)
       .then(data => {
         this.dashboardTableDetails[0].balance = Utils.roundValueTillTwoDecimal(data);
       })
       .catch(function (err: Error) {
-        // console.log('error while fetching ether balance: ', err);
+        this.dashboardTableDetails[0].balance = 0;
       });
 
-    this.web3Service.refreshKusCoinBalance()
+    this.web3Service.getKusCoinBalanceForAccount(address)
       .then(data => {
         this.dashboardTableDetails[1].balance = Utils.roundValueTillTwoDecimal(data);
       })
       .catch(function (err: Error) {
-        // console.log('error while fetching KusCoin balance: ', err);
-        // this.dashboardTableDetails[1].balance = 0;
+        this.dashboardTableDetails[1].balance = 0;
       });
   }
 

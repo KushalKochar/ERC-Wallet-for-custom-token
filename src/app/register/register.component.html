@@ -1,0 +1,20 @@
+<form [formGroup]="form" class="form-group" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="form-group col-xs-12 col-md-6 col-lg-4">
+      <label for="password">Password</label>
+      <input type="password" id="password" class="form-control" formControlName="password" [formGroup]="form">
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-12 col-md-6 col-lg-4">
+      <label for="confirmPassword">Conform Password</label>
+      <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" [formGroup]="form">
+    </div>
+  </div>
+  <div class="row">
+    <div class="alert alert-danger col-xs-12 col-md-5 col-lg-3" style="margin-left: 15px" *ngIf="form.controls.confirmPassword.errors?.MatchPassword">Password not match</div>
+  </div>
+  <div class="row">
+    <input type="submit" class="btn btn-primary col-xs-2 col-md-1 col-lg-1" style="margin-left: 1%" value="submit">
+  </div>
+</form>

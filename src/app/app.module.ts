@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -18,6 +18,12 @@ import { firebaseconfig } from '../environments/environment';
 import { AlertComponent } from './alert-dialogbox.component';
 import { DialogService, BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { LoaderService } from './shared/servcies/loader.service';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthenticationService } from './shared/servcies/authentication.service';
+import { LocalStorageService } from './shared/servcies/local-storage.service';
+import { WalletService } from './shared/servcies/wallet.service';
+import { GlobalService } from './shared/servcies/global.service';
 
 @NgModule({
   declarations: [
@@ -26,12 +32,15 @@ import { LoaderService } from './shared/servcies/loader.service';
     BuyKuscoinComponent,
     ImportPrivateKeyComponent,
     DashboardComponent,
-    AlertComponent
+    AlertComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseconfig),
@@ -39,8 +48,16 @@ import { LoaderService } from './shared/servcies/loader.service';
   ],
   entryComponents: [
     AlertComponent
-],
-  providers: [Web3Service,FirebaseService,AngularFireDatabase,DialogService, LoaderService],
+  ],
+  providers: [Web3Service,
+    FirebaseService,
+    AngularFireDatabase,
+    DialogService,
+    LoaderService,
+    AuthenticationService,
+    LocalStorageService,
+    WalletService,
+    GlobalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
