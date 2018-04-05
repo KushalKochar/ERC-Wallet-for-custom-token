@@ -1,0 +1,16 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>TimeStamp</th>
+        <th>Transaction Hash</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dashboardTableDetails; let i = index">
+        <td>{{item.timeStamp}}</td>
+        <td>{{item.transactionHash}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

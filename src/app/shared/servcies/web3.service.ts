@@ -135,12 +135,15 @@ export class Web3Service implements CanActivate {
     var firebase = this.firebaseService;
     var dialog = this.dialogService;
     var loader = this.loaderService;
+    var localService = this.localStorageService;
+    var authService = this.authService;
 
     this.web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
       .on('transactionHash', function (hash) {
         loader.display(false);
         log.transactionHash = hash;
-        firebase.logBoughtKusCoinTransaction(log);
+        // firebase.logBoughtKusCoinTransaction(log);
+        localService.saveTransactionInLocalDB(log, authService.password);
         dialog.addDialog(AlertComponent, { title: 'Ethereum wallet - Alert', message: "Request for buying KusCoin is  under process and might take some time depending on the network." });
       })
       .catch(reason => {
@@ -181,12 +184,15 @@ export class Web3Service implements CanActivate {
     var firebase = this.firebaseService;
     var dialog = this.dialogService;
     var loader = this.loaderService;
+    var localService = this.localStorageService;
 
     this.web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
       .on('transactionHash', function (hash) {
         loader.display(false);
         log.transactionHash = hash;
-        firebase.logBoughtKusCoinTransaction(log);
+        // firebase.logBoughtKusCoinTransaction(log);
+        // localService.saveTransactionInLocalDB(log, "test");
+
         dialog.addDialog(AlertComponent, { title: 'Ethereum wallet - Alert', message: "Request for sending Ether is  under process and might take some time depending on the network." });
       })
       .catch(reason => {

@@ -10,6 +10,7 @@
             <a *ngIf='this.global.accounts.length > 0' routerLink="/app-buy-kuscoin" routerLinkActive="active">Buy KusCoin</a>
             <a *ngIf='this.global.accounts.length > 0' routerLink="/app-send-eth" routerLinkActive="active">Send Eth</a>
             <a *ngIf='this.global.accounts.length > 0' routerLink="/app-show-qrcode" routerLinkActive="active">Show QR</a>
+            <a *ngIf="auth.loggedIn" routerLink="/app-transaction-history" routerLinkActive="active">History</a>
             <a *ngIf="auth.loggedIn" routerLink="/app-login" (click)="logOff()" routerLinkActive="active">Logoff</a>
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" (click)="responsiveMenuFunction()">&#9776;</a>
         </div>

@@ -9,9 +9,11 @@ import { AuthenticationService } from './shared/servcies/authentication.service'
 import { LoginComponent } from './login/login.component';
 import { SendEthComponent } from './send-eth/send-eth.component';
 import { ShowQrcodeComponent } from './show-qrcode/show-qrcode.component';
+import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 
 const routes: Routes = [
   { path: 'app-dashboard', component: DashboardComponent, canActivate: [AuthenticationService] },
+  { path: 'app-transaction-history', component: TransactionHistoryComponent, canActivate: [AuthenticationService] },
   { path: 'app-import-private-key', component: ImportPrivateKeyComponent, canActivate: [AuthenticationService] },
   { path: 'app-buy-kuscoin', component: BuyKuscoinComponent, canActivate: [AuthenticationService] },
   { path: 'app-send-eth', component: SendEthComponent, canActivate: [AuthenticationService] },

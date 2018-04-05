@@ -26,6 +26,7 @@ import { WalletService } from './shared/servcies/wallet.service';
 import { GlobalService } from './shared/servcies/global.service';
 import { SendEthComponent } from './send-eth/send-eth.component';
 import { ShowQrcodeComponent } from './show-qrcode/show-qrcode.component';
+import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ShowQrcodeComponent } from './show-qrcode/show-qrcode.component';
     LoginComponent,
     RegisterComponent,
     SendEthComponent,
-    ShowQrcodeComponent
+    ShowQrcodeComponent,
+    TransactionHistoryComponent
   ],
   imports: [
     CommonModule,
