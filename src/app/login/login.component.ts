@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import Utils from '../shared/utils/utils';
 import { Web3Service } from '../shared/servcies/web3.service';
 import { AuthenticationService } from '../shared/servcies/authentication.service';
@@ -12,17 +13,21 @@ import { WalletService } from '../shared/servcies/wallet.service';
 })
 export class LoginComponent implements OnInit {
 
+  form: FormGroup;
   public password: string;
 
   constructor(
+    fb: FormBuilder,
     private wdb3Service: Web3Service,
     private authService: AuthenticationService,
     private router: Router,
     private walletService: WalletService) {
+    this.form = fb.group({
+      password: ['', Validators.required]})
   }
 
   login() {
-    if (this.walletService.loginUser(this.password)) {
+    if (this.walletService.loginUser(this.form.controls["password"].value)) {
       this.router.navigateByUrl('/app-dashboard');
     } else {
     }

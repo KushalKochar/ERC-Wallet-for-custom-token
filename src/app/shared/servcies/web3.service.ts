@@ -150,6 +150,53 @@ export class Web3Service implements CanActivate {
 
   }
 
+  public async getGasDetails(){
+    const gas_price = await this.web3.eth.getGasPrice();
+    return gas_price;
+    // const gas_limit = await this.web3.eth.estimateGas(T;
+  }
+
+  public async sendEther(fromAccount: AccountDetails, toAddress: string, amountInEther: number, gasPrice: number, gasLimit: number,optionalData?: string) {
+    // console.log("Wallet is : ", this.web3.eth.accounts.wallet[selectedAccount.index].privateKey);
+    // return;
+    const nonce_available = await this.web3.eth.getTransactionCount(fromAccount.address, "latest");
+    // const gas_price = await this.web3.eth.getGasPrice();
+
+    var privateKeyBuffer = new Buffer(this.web3.eth.accounts.wallet[fromAccount.index].privateKey.toString().slice(2), 'hex');
+    var rawTx = {
+      nonce: nonce_available,
+      gasPrice: gasPrice, // keeping it 10 times more for faster response
+      gasLimit: gasLimit,
+      to: toAddress,
+      value: Utils.convertEtherToWei(amountInEther),
+      data: '0x0'
+    }
+    var tx = new Tx(rawTx);
+    tx.sign(privateKeyBuffer);
+    var serializedTx = tx.serialize();
+
+    var log = new ActivityLog();
+    log.address = fromAccount.address;
+
+    var firebase = this.firebaseService;
+    var dialog = this.dialogService;
+    var loader = this.loaderService;
+
+    this.web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
+      .on('transactionHash', function (hash) {
+        loader.display(false);
+        log.transactionHash = hash;
+        firebase.logBoughtKusCoinTransaction(log);
+        dialog.addDialog(AlertComponent, { title: 'Ethereum wallet - Alert', message: "Request for sending Ether is  under process and might take some time depending on the network." });
+      })
+      .catch(reason => {
+        loader.display(false);
+        dialog.addDialog(AlertComponent, { title: 'Ethereum wallet - Error', message: reason.toString() });
+      });
+
+  }
+
+
   public async getKusCoinBalanceForAccount(address: string) {
     const deployedKusCoin = await this.KusCoin.deployed();
     const KusCoinBalance = await deployedKusCoin.balanceOf.call(address);

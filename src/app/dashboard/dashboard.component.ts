@@ -5,6 +5,8 @@ import { AccountBalance } from '../shared/models/account-balance';
 import Utils from '../shared/utils/utils';
 import { WalletService } from '../shared/servcies/wallet.service';
 import { GlobalService } from '../shared/servcies/global.service';
+import * as QRCode from 'qrcode';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -40,6 +42,19 @@ export class DashboardComponent implements OnDestroy {
   }
 
   private async refreshBalance(address: string) {
+
+    // QRCode.toDataURL(address)
+    //   .then(url => {
+    //     console.log(url)
+    //   })
+    //   .catch(err => {
+    //     console.error(err)
+    //   })
+
+    // QRCode.toCanvas(document.getElementById('canvas'), address, function (error) {
+    //   if (error) console.error(error)
+    //   console.log('success!');
+    // })
 
     this.web3Service.getEtherBalanceForAccount(address)
       .then(data => {

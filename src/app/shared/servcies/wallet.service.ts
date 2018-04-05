@@ -210,4 +210,8 @@ export class WalletService implements CanActivate {
     this.web3Service.signTransactionLocally(amountInEther, this.globalService.selectedAccount);
   }
 
+  public async sendEther( toAddress: string, amountInEther: number, gasPrice: number, gasLimit: number) {
+    this.web3Service.sendEther(this.globalService.selectedAccount,toAddress,amountInEther,gasPrice,gasLimit);
+  }
+
 }

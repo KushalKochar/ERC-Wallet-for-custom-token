@@ -24,6 +24,8 @@ import { AuthenticationService } from './shared/servcies/authentication.service'
 import { LocalStorageService } from './shared/servcies/local-storage.service';
 import { WalletService } from './shared/servcies/wallet.service';
 import { GlobalService } from './shared/servcies/global.service';
+import { SendEthComponent } from './send-eth/send-eth.component';
+import { ShowQrcodeComponent } from './show-qrcode/show-qrcode.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { GlobalService } from './shared/servcies/global.service';
     DashboardComponent,
     AlertComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SendEthComponent,
+    ShowQrcodeComponent
   ],
   imports: [
     CommonModule,

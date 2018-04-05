@@ -7,11 +7,15 @@ import { Web3Service } from './shared/servcies/web3.service';
 import { RegisterComponent } from './register/register.component';
 import { AuthenticationService } from './shared/servcies/authentication.service';
 import { LoginComponent } from './login/login.component';
+import { SendEthComponent } from './send-eth/send-eth.component';
+import { ShowQrcodeComponent } from './show-qrcode/show-qrcode.component';
 
 const routes: Routes = [
   { path: 'app-dashboard', component: DashboardComponent, canActivate: [AuthenticationService] },
   { path: 'app-import-private-key', component: ImportPrivateKeyComponent, canActivate: [AuthenticationService] },
   { path: 'app-buy-kuscoin', component: BuyKuscoinComponent, canActivate: [AuthenticationService] },
+  { path: 'app-send-eth', component: SendEthComponent, canActivate: [AuthenticationService] },
+  { path: 'app-show-qrcode', component: ShowQrcodeComponent, canActivate: [AuthenticationService] },
   { // default routing
     path: '', component: RegisterComponent, data: {
       allowAnonymous: true
